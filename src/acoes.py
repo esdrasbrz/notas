@@ -144,16 +144,29 @@ def estat_disciplina(bd):
         estat.print_notas()
         print()
 
-        # calcula as estatísticas
-        media_parc = estat.media_parcial()
-        media_tot = estat.media_total()
-        desvio = estat.desvio_padrao()
-        
-
         # imprime as estatísticas
-        print("Média parcial: %.2f" % media_parc)
-        print("Média total: %.2f" % media_tot)
-        print("Desvio padrão: %.2f" % desvio)
+        print("Média parcial: %.2f" % estat.media_parcial)
+        print("Média total: %.2f" % estat.media_total)
+        print("Desvio padrão: %.2f" % estat.desvio_padrao)
     except:
         print("Desculpe, algum erro ocorreu :(")
 
+# Função que imprime estatística por semestre
+def estat_semestre(bd):
+    try:
+        # escolhe o semestre
+        semestre = _sel_semestre(bd)
+
+        # instancia da classe responsável pelos cálculos
+        estat = EstatSemestre(bd, semestre)
+
+        # imprime a tabela com as médias
+        print()
+        estat.print_medias()
+        print()
+
+        print("Estatísticas do semestre...")
+        print("Média parcial: %.2f" % estat.media_parcial)
+        print("Média total: %.2f" % estat.media_total)
+    except:
+        print("Desculpe, algum erro ocorreu :(")

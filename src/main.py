@@ -39,6 +39,7 @@ def menu():
         'IT': new_teste,
         'IN': set_nota,
         'ED': estat_disciplina,
+        'ES': estat_semestre,
         'S': salvar,
         'Q': sair,
     }
@@ -55,6 +56,7 @@ def menu():
     print("Inserir Teste: IT")
     print("Inserir Nota: IN")
     print("Estatísticas por Disciplina: ED")
+    print("Estatísticas por Semestre: ES")
     print("Salvar Alterações: S")
     print("Sair: Q")
 
