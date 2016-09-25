@@ -1,7 +1,11 @@
 """
 Classe responsável por realizar os cálculos matemáticos/estatísticos
 para determinada disciplina
+
+Esdras R. Carmo
 """
+
+import math
 
 class EstatDisciplina:
     def __init__(self, bd, disciplina):
@@ -48,3 +52,23 @@ class EstatDisciplina:
             sum_pesos += teste.peso
 
         return sum_notas / sum_pesos if sum_pesos else 0.0
+
+    """
+    Função que calcula o desvio padrão sobre os testes realizados
+    """
+    def desvio_padrao(self):
+        media = self.media_parcial()
+        qtd_notas = 0
+        sum_desvio = 0.0
+
+        # percorre os testes
+        for teste in self.testes:
+            # verifica se possui nota
+            if teste.nota != -1.0:
+                sum_desvio += (teste.nota - media)**2
+                qtd_notas += 1
+
+        # realiza o cálculo do desvio
+        sum_desvio = math.sqrt(sum_desvio / (qtd_notas - 1)) if qtd_notas > 1 else 0.0
+
+        return sum_desvio

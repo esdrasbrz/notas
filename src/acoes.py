@@ -1,5 +1,7 @@
 """
 Arquivo com as ações de seleção de cada item do menu principal
+
+Esdras R. Carmo
 """
 
 from estrutura import *
@@ -136,9 +138,10 @@ def estat_disciplina(bd):
         estat.print_notas()
         print()
 
-        # imprime as médias
+        # imprime as estatísticas
         print("Média parcial: %.2f" % estat.media_parcial())
         print("Média total: %.2f" % estat.media_total())
+        print("Desvio padrão: %.2f" % estat.desvio_padrao())
     except:
         print("Desculpe, algum erro ocorreu :(")
 
