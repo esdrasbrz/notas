@@ -5,6 +5,7 @@ Classe responsável por armazenar e manipular toda a base de dados
 from .semestre import *
 from .disciplina import *
 from .testes import *
+import os
 
 class BD:
     def __init__(self):
@@ -112,8 +113,16 @@ class BD:
 
 
         # abre os arquivos para gravar
-        with open('../dados/semestres', 'w') as file_sem:
-            file_sem.write(str_sem)
+        try:
+            with open('../dados/semestres', 'w') as file_sem:
+                file_sem.write(str_sem)
+        except FileNotFoundError:
+            # cria o diretório da base de dados
+            os.system('mkdir ../dados')
+
+            with open('../dados/semestres', 'w') as file_sem:
+                file_sem.write(str_sem)
+
         with open('../dados/disciplinas', 'w') as file_disc:
             file_disc.write(str_disc)
         with open('../dados/testes', 'w') as file_testes:
