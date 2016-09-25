@@ -38,6 +38,7 @@ def menu():
         'ID': new_disciplina,
         'IT': new_teste,
         'IN': set_nota,
+        'ED': estat_disciplina,
         'S': salvar,
         'Q': sair,
     }
@@ -53,6 +54,7 @@ def menu():
     print("Inserir Disciplina: ID")
     print("Inserir Teste: IT")
     print("Inserir Nota: IN")
+    print("Estatísticas por Disciplina: ED")
     print("Salvar Alterações: S")
     print("Sair: Q")
 

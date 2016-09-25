@@ -3,6 +3,7 @@ Arquivo com as ações de seleção de cada item do menu principal
 """
 
 from estrutura import *
+from estat import *
 
 # Função para sair do programa
 def sair(bd):
@@ -17,6 +18,43 @@ def sair(bd):
 def _list_objetos(objs):
     for i, obj in enumerate(objs):
         print("%d: %s" % (i, obj))
+
+# Função para selecionar o semestre com base no usuário
+def _sel_semestre(bd):
+    print("Selecione o semestre")
+    _list_objetos(bd.semestres)
+    print()
+    i = int(input("Digite o índice do semestre: "))
+
+    return bd.semestres[i]
+
+# Função para selecionar a disciplina com base no usuário
+def _sel_disciplina(bd):
+    semestre = _sel_semestre(bd)
+
+    # cache das disciplinas
+    disciplinas = semestre.get_disciplinas(bd)
+
+    print("Selecione a disciplina")
+    _list_objetos(disciplinas)
+    print()
+    i = int(input("Digite o índice da disciplina: "))
+
+    return disciplinas[i]
+
+# Função para selecionar o teste com base no usuário
+def _sel_teste(bd):
+    disciplina = _sel_disciplina(bd)
+
+    # cache dos testes
+    testes = disciplina.get_testes(bd)
+
+    print("Selecione o teste")
+    _list_objetos(testes)
+    print()
+    i = int(input("Digite o índice do teste: "))
+
+    return testes[i]
 
 # Função para inserir um novo semestre
 def new_semestre(bd):
@@ -35,15 +73,11 @@ def new_semestre(bd):
 # Função para inserir uma nova disciplina
 def new_disciplina(bd):
     try:
-        print("A qual semestre ela pertence?")
-        _list_objetos(bd.semestres)
-
-        print()
-        i = int(input("Digite o índice do semestre: "))
+        semestre = _sel_semestre(bd)
         nome = input("Digite o nome da disciplina: ")
         creditos = int(input("Digite quantos créditos ela possui: "))
 
-        disciplina = Disciplina(nome=nome, creditos=creditos, semestre=bd.semestres[i])
+        disciplina = Disciplina(nome=nome, creditos=creditos, semestre=semestre)
         bd.disciplinas.append(disciplina)
 
         print("Disciplina inserida com sucesso!")
@@ -53,20 +87,8 @@ def new_disciplina(bd):
 # Função para inserir um novo teste
 def new_teste(bd):
     try:
-        # escolhe o semestre
-        print("Selecione o semestre")
-        _list_objetos(bd.semestres)
-        print()
-        i_sem = int(input("Digite o índice do semestre: "))
-
-        # cache na lista de disciplinas
-        disciplinas = bd.semestres[i_sem].get_disciplinas(bd)
-        
-        # escolhe a disciplina
-        print("Selecione a disciplina")
-        _list_objetos(disciplinas)
-        print()
-        i_disc = int(input("Digite o índice da disciplina: "))
+        # recebe a disciplina
+        disciplina = _sel_disciplina(bd)
 
         # loop para cadastrar vários testes
         while True:
@@ -75,7 +97,7 @@ def new_teste(bd):
             peso = int(input("Qual o peso? "))
             
             # instancia e insere no bd
-            teste = Testes(nome=nome, peso=peso, disciplina=disciplinas[i_disc])
+            teste = Testes(nome=nome, peso=peso, disciplina=disciplina)
             bd.testes.append(teste)
 
             opcao = input("Deseja cadastrar mais um teste? (S/n)")
@@ -84,38 +106,15 @@ def new_teste(bd):
     except:
         print("Desculpe, algum erro ocorreu :(")
 
-"""
-Função para setar uma nova nota
-"""
+
+# Função para setar uma nova nota
 def set_nota(bd):
     try:
-        print("Selecione o semestre")
-        _list_objetos(bd.semestres)
-        print()
-        i_sem = int(input("Digite o índice do semestre: "))
-
-        # cache da lista de disciplinas
-        disciplinas = bd.semestres[i_sem].get_disciplinas(bd)
-
-        # escolhe a disciplina
-        print("Selecione a disciplina")
-        _list_objetos(disciplinas)
-        print()
-        i_disc = int(input("Digite o índice da disciplina: "))
-
-        # cache da lista de testes
-        testes = bd.disciplinas[i_disc].get_testes(bd)
-
-        # escolhe o teste
-        print("Seleciona o teste")
-        _list_objetos(testes)
-        print()
-        i_teste = int(input("Digite o índice do teste: "))
-
+        teste = _sel_teste(bd)
         nota = float(input("Digite sua nota (separe decimais com '.'): "))
 
         # atualiza o teste
-        testes[i_teste].nota = nota
+        teste.nota = nota
 
         print("Nota inserida com sucesso!")
         if nota > 9:
@@ -123,9 +122,27 @@ def set_nota(bd):
     except:
         print("Desculpe, algum erro ocorreu :(")
 
-"""
-Função para salvar todas as alterações do BD
-"""
+# Função que imprime as estatísticas por disciplina
+def estat_disciplina(bd):
+    try:
+        # escolhe a disciplina
+        disciplina = _sel_disciplina(bd)
+
+        # instancia a classe responsável pelos calculos
+        estat = EstatDisciplina(bd, disciplina)
+
+        # imprime a tabela com todas as notas
+        print()
+        estat.print_notas()
+        print()
+
+        # imprime as médias
+        print("Média parcial: %.2f" % estat.media_parcial())
+        print("Média total: %.2f" % estat.media_total())
+    except:
+        print("Desculpe, algum erro ocorreu :(")
+
+# Função para salvar todas as alterações do BD
 def salvar(bd):
     print("Salvando alterações...")
     bd.salvar()
