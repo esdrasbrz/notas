@@ -39,6 +39,9 @@ class EstatSemestre:
         self.media_total = sum_notas_total / sum_pesos_total if sum_pesos_total else 0.0
         self.media_parcial = sum_notas_parcial / sum_pesos_parcial if sum_pesos_parcial else 0.0
 
+        # total de créditos do semestre
+        self.total_creditos = sum_pesos_total
+
     """
     Função que imprime as médias totais e parciais de cada disciplina do semestre
     """

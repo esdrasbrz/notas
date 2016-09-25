@@ -212,5 +212,6 @@ def estat_semestre(bd):
         print("------- Estatísticas do semestre --------")
         print("Média parcial: %.2f" % estat.media_parcial)
         print("Média total: %.2f" % estat.media_total)
+        print("Total de créditos: %d" % estat.total_creditos)
     except:
         print("Desculpe, algum erro ocorreu :(")
