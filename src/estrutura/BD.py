@@ -71,3 +71,50 @@ class BD:
         except FileNotFoundError:   
             print("Base de dados não encontrada...") # silencia o caso de não existir base de dados ainda
 
+    """
+    Função para salvar todas as alterações nos arquivos
+    """
+    def salvar(self):
+        # cria as strings contendo os dados que irão para o arquivo
+        str_sem = ''
+        str_disc = ''
+        str_testes = ''
+
+        # percorre os semestres inserindo
+        for semestre in self.semestres:
+            str_sem += "%d;%d\n" % (semestre.ano, semestre.periodo)
+
+        # percorre as disciplinas inserindo
+        for disciplina in self.disciplinas:
+            str_disc += "%s;%d;" % (disciplina.nome, disciplina.creditos)
+
+            # procura o indice do semestre
+            i = 0
+            for semestre in self.semestres:
+                if semestre == disciplina.semestre:
+                    break
+                i += 1
+
+            str_disc += "%d\n" % i
+
+        # percorre os testes inserindo
+        for teste in self.testes:
+            str_testes += "%s;%d;%.2f;" % (teste.nome, teste.peso, teste.nota)
+
+            # procura o índice da disciplina
+            i = 0
+            for disciplina in self.disciplinas:
+                if disciplina == teste.disciplina:
+                    break
+                i += 1
+
+            str_testes += "%d\n" % i
+
+
+        # abre os arquivos para gravar
+        with open('../dados/semestres', 'w') as file_sem:
+            file_sem.write(str_sem)
+        with open('../dados/disciplinas', 'w') as file_disc:
+            file_disc.write(str_disc)
+        with open('../dados/testes', 'w') as file_testes:
+            file_testes.write(str_testes)

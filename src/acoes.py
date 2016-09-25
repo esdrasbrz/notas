@@ -6,6 +6,10 @@ from estrutura import *
 
 # Função para sair do programa
 def sair(bd):
+    # salva as alterações
+    salvar(bd)
+
+    print()
     print("Já estava na hora de ir estudar :D")
     exit()
 
@@ -84,3 +88,11 @@ def new_teste(bd):
                 break
     except:
         print("Desculpe, algum erro ocorreu :(")
+
+"""
+Função para salvar todas as alterações do BD
+"""
+def salvar(bd):
+    print("Salvando alterações...")
+    bd.salvar()
+    print("Alterações salvas com sucesso!")

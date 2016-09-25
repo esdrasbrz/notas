@@ -37,6 +37,7 @@ def menu():
         'IS': new_semestre,
         'ID': new_disciplina,
         'IT': new_teste,
+        'S': salvar,
         'Q': sair,
     }
 
@@ -50,6 +51,7 @@ def menu():
     print("Inserir Semestre: IS")
     print("Inserir Disciplina: ID")
     print("Inserir Teste: IT")
+    print("Salvar Alterações: S")
     print("Sair: Q")
 
     return opcoes
