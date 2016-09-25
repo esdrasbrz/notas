@@ -12,5 +12,18 @@ class Disciplina:
         # semestre ao qual pertence a disciplina
         self.semestre = semestre
 
+    """
+    Função que retorna uma lista de testes referentes à esta disciplina
+    """
+    def get_testes(self, bd):
+        testes = []
+
+        # percorre o bd
+        for teste in bd.testes:
+            if teste.disciplina == self:
+                testes.append(teste)
+
+        return testes
+    
     def __str__(self):
         return "%s - %d créditos" % (self.nome, self.creditos)
