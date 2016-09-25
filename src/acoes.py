@@ -30,6 +30,7 @@ def _list_objetos(objs):
 # Função para selecionar o semestre com base no usuário
 def _sel_semestre(bd):
     print("Selecione o semestre")
+    bd.semestres.sort(key=lambda obj: obj.ano + obj.periodo)
     _list_objetos(bd.semestres)
     print()
     i = int(input("Digite o índice do semestre: "))
@@ -42,6 +43,7 @@ def _sel_disciplina(bd):
 
     # cache das disciplinas
     disciplinas = semestre.get_disciplinas(bd)
+    disciplinas.sort(key=lambda obj: obj.nome)
 
     print("Selecione a disciplina")
     _list_objetos(disciplinas)
@@ -56,6 +58,7 @@ def _sel_teste(bd):
 
     # cache dos testes
     testes = disciplina.get_testes(bd)
+    testes.sort(key=lambda obj: obj.nome)
 
     print("Selecione o teste")
     _list_objetos(testes)
