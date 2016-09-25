@@ -15,6 +15,11 @@ class EstatDisciplina:
         # lista de testes referentes à disciplina
         self.testes = disciplina.get_testes(bd)
 
+        # variáveis com as estatisticas calculadas
+        self._media_parcial = 0.0
+        self._media_total = 0.0
+        self._desvio_padrao = 0.0
+
     """
     Função que imprime todos os testes e suas notas (se houver)
     """
@@ -37,7 +42,8 @@ class EstatDisciplina:
                 sum_notas += teste.peso * teste.nota
                 sum_pesos += teste.peso
 
-        return sum_notas / sum_pesos if sum_pesos else 0.0
+        self._media_parcial = sum_notas / sum_pesos if sum_pesos else 0.0
+        return self._media_parcial
 
     """
     Função que calcula a média total dos testes, sem se importar com os testes não feitos
@@ -51,7 +57,8 @@ class EstatDisciplina:
             sum_notas += teste.peso * teste.nota if teste.nota != -1.0 else 0.0
             sum_pesos += teste.peso
 
-        return sum_notas / sum_pesos if sum_pesos else 0.0
+        self._media_total = sum_notas / sum_pesos if sum_pesos else 0.0
+        return self._media_total
 
     """
     Função que calcula o desvio padrão sobre os testes realizados
@@ -69,6 +76,7 @@ class EstatDisciplina:
                 qtd_notas += 1
 
         # realiza o cálculo do desvio
-        sum_desvio = math.sqrt(sum_desvio / (qtd_notas - 1)) if qtd_notas > 1 else 0.0
+        self._desvio_padrao = math.sqrt(sum_desvio / (qtd_notas - 1)) if qtd_notas > 1 else 0.0
+        
+        return self._desvio_padrao
 
-        return sum_desvio

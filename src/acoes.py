@@ -7,6 +7,12 @@ Esdras R. Carmo
 from estrutura import *
 from estat import *
 
+# Função para salvar todas as alterações do BD
+def salvar(bd):
+    print("Salvando alterações...")
+    bd.salvar()
+    print("Alterações salvas com sucesso!")
+
 # Função para sair do programa
 def sair(bd):
     # salva as alterações
@@ -138,15 +144,16 @@ def estat_disciplina(bd):
         estat.print_notas()
         print()
 
+        # calcula as estatísticas
+        media_parc = estat.media_parcial()
+        media_tot = estat.media_total()
+        desvio = estat.desvio_padrao()
+        
+
         # imprime as estatísticas
-        print("Média parcial: %.2f" % estat.media_parcial())
-        print("Média total: %.2f" % estat.media_total())
-        print("Desvio padrão: %.2f" % estat.desvio_padrao())
+        print("Média parcial: %.2f" % media_parc)
+        print("Média total: %.2f" % media_tot)
+        print("Desvio padrão: %.2f" % desvio)
     except:
         print("Desculpe, algum erro ocorreu :(")
 
-# Função para salvar todas as alterações do BD
-def salvar(bd):
-    print("Salvando alterações...")
-    bd.salvar()
-    print("Alterações salvas com sucesso!")
