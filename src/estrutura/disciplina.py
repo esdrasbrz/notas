@@ -12,8 +12,5 @@ class Disciplina:
         # semestre ao qual pertence a disciplina
         self.semestre = semestre
 
-        # lista de testes que irá avaliar aquela disciplina
-        self.testes = []
-
     def __str__(self):
         return "%s - %d créditos" % (self.nome, self.creditos)

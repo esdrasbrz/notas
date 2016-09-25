@@ -3,9 +3,15 @@ Arquivo principal que irá manipular a estrutura e realizar as operações neces
 """
 
 from acoes import *
+from estrutura import *
 
 # Função principal
 def main():
+    bd = BD() # instancia da base de dados total
+
+    print("Lendo base de dados...")
+    bd.abrir()
+
     opcoes = menu()
 
     # loop para receber as ações
@@ -15,7 +21,7 @@ def main():
 
         try:
             # chama a função mapeada
-            opcoes[opcao.upper()]()
+            opcoes[opcao.upper()](bd)
         except KeyError:
             print("Não sei fazer isso, desculpe :(")
 
@@ -28,7 +34,10 @@ com as opções e as funções mapeando cada uma
 def menu():
     # dicionário com as opções
     opcoes = {
-        'S': sair,
+        'IS': new_semestre,
+        'ID': new_disciplina,
+        'IT': new_teste,
+        'Q': sair,
     }
 
     # imprime o menu estilizado :)
@@ -38,7 +47,10 @@ def menu():
     print("-------------------")
     print()
 
-    print("Sair: S")
+    print("Inserir Semestre: IS")
+    print("Inserir Disciplina: ID")
+    print("Inserir Teste: IT")
+    print("Sair: Q")
 
     return opcoes
 

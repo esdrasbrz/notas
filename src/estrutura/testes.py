@@ -5,10 +5,10 @@ Esdras R. Carmo
 """
 
 class Testes:
-    def __init__(self, nome='', peso=1, disciplina=None):
+    def __init__(self, nome='', peso=1, nota=-1.0, disciplina=None):
         self.nome = nome
         self.peso = peso
-        self.nota = -1.0 # inicia com nota -1, significando que o usuário não fez o teste ainda
+        self.nota = nota # inicia com nota -1, significando que o usuário não fez o teste ainda
 
         self.disciplina = disciplina # disciplina a qual se relaciona o teste
 
