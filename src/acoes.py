@@ -108,12 +108,56 @@ def new_teste(bd):
             teste = Testes(nome=nome, peso=peso, disciplina=disciplina)
             bd.testes.append(teste)
 
-            opcao = input("Deseja cadastrar mais um teste? (S/n)")
+            opcao = input("Deseja cadastrar mais um teste? (S/n) ")
             if opcao and opcao.upper() == 'N':
                 break
     except:
         print("Desculpe, algum erro ocorreu :(")
 
+# Função para remover um semestre
+def del_semestre(bd):
+    try:
+        # recebe o semestre
+        semestre = _sel_semestre(bd)
+
+        resp = input("Tem certeza que deseja excluir o semestre (e tudo que depende dele)? (s/N) ")
+
+        if resp and resp.upper() == 'S':
+            semestre.remover(bd)
+
+            print("Semestre removido com sucesso!")
+    except:
+        print("Desculpe, algum erro ocorreu :(")
+
+# Função para remover uma disciplina
+def del_disciplina(bd):
+    try:
+        # recebe a disciplina
+        disciplina = _sel_disciplina(bd)
+
+        resp = input("Tem certeza que deseja excluir a disciplina (e tudo que depende dela)? (s/N) ")
+
+        if resp and resp.upper() == 'S':
+            disciplina.remover(bd)
+
+            print("Disciplina removido com sucesso!")
+    except:
+        print("Desculpe, algum erro ocorreu :(")
+
+# Função para remover um semestre
+def del_teste(bd):
+    try:
+        # recebe o teste
+        teste = _sel_teste(bd)
+
+        resp = input("Tem certeza que deseja excluir o teste? (s/N) ")
+
+        if resp and resp.upper() == 'S':
+            teste.remover(bd)
+
+            print("Teste removido com sucesso!")
+    except:
+        print("Desculpe, algum erro ocorreu :(")
 
 # Função para setar uma nova nota
 def set_nota(bd):
@@ -165,7 +209,7 @@ def estat_semestre(bd):
         estat.print_medias()
         print()
 
-        print("Estatísticas do semestre...")
+        print("------- Estatísticas do semestre --------")
         print("Média parcial: %.2f" % estat.media_parcial)
         print("Média total: %.2f" % estat.media_total)
     except:

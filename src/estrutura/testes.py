@@ -19,3 +19,15 @@ class Testes:
             teste += ' - Nota: %.2f' % self.nota
 
         return teste
+
+    """
+    Função para remover o teste
+    """
+    def remover(self, bd):
+        # procura o teste no bd
+        for i, teste in enumerate(bd.testes):
+            if teste == self:
+                break
+
+        # remove do BD
+        del bd.testes[i]

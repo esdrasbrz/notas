@@ -27,3 +27,21 @@ class Semestre:
     
     def __str__(self):
         return "%d - período %d" % (self.ano, self.periodo)
+
+    """
+    Função de remoção para remover todas as disciplinas
+    """
+    def remover(self, bd):
+        disciplinas = self.get_disciplinas(bd)
+
+        # percorre as disciplinas removendo
+        for disciplina in disciplinas:
+            disciplina.remover(bd)
+
+        # procura o semestre no bd
+        for i, semestre in enumerate(bd.semestres):
+            if semestre == self:
+                break
+
+        # remove o semestre
+        del bd.semestres[i]

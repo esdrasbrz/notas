@@ -27,3 +27,21 @@ class Disciplina:
     
     def __str__(self):
         return "%s - %d créditos" % (self.nome, self.creditos)
+
+    """
+    Função para remover a disciplina e todos os seus testes
+    """
+    def remover(self, bd):
+        testes = self.get_testes(bd)
+
+        # percorre os testes removendo
+        for teste in testes:
+            teste.remover(bd)
+
+        # procura a disciplina no bd
+        for i, disciplina in enumerate(bd.disciplinas):
+            if disciplina == self:
+                break
+
+        # remove a disciplina
+        del bd.disciplinas[i]
